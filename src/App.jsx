@@ -1,10 +1,12 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import workintech from '/workintech.svg'
+import React from 'react'
 import './App.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import OrderPizza from './OrderPizza.jsx';
+
+
 
 function App() {
-  const [count, setCount] = useState(0)
+  /* const [count, setCount] = useState(0)
 
   return (
     <>
@@ -28,8 +30,19 @@ function App() {
       <p className="read-the-docs">
         Click on the Workintech or Pizza logos to learn more
       </p>
+      <div>
+      
+      </div>
     </>
   )
+  */
+
+  return (
+    <div className="App">
+      <h1>Pizza Order Form</h1>
+      <OrderPizza />
+    </div>
+  );
 }
 
 export default App
