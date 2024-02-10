@@ -1,7 +1,9 @@
 import React from 'react'
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Header from './Header';
 import OrderPizza from './OrderPizza.jsx';
+
 
 
 
@@ -38,10 +40,10 @@ function App() {
   */
 
   return (
-    <div className="App">
-      <h1>Pizza Order Form</h1>
+    <>
+      <Header />
       <OrderPizza />
-    </div>
+    </>
   );
 }
 

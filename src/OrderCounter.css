@@ -1,0 +1,38 @@
+.btn-group {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #F5F8FB;
+    transition: border 0.3s ease;
+    width: 150px;
+  }
+  
+  .btn-group:hover {
+      border: 1px solid #4097fe
+  }
+  
+  .decrement-btn, .increment-btn {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #FDC913;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  button:hover {
+      background-color: #f3f9ff;
+  }
+  
+  .counterP {
+    width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #F5F8FB;
+  }
