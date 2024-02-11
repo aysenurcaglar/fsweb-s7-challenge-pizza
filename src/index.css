@@ -48,14 +48,21 @@ h1 {
 
 h2 {
   margin: 5% 0;
+  font-weight: bold;
 }
 
 h4{
-  margin: 10% 0;
+  margin: 10% 0 5% 0;
+  font-weight: bold;
 }
 
 p {
   color: #5F5F5F;
+}
+
+.category-label {
+  font-weight: bold;
+  color: #292929;
 }
 
 .button, .orderButton {
@@ -78,7 +85,16 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-.orderForm {
+.order-header {
+  max-height: 5vh;
+}
+
+.order-header-text {
+  color: white;
+  margin-right: 14%;
+}
+
+.order-form {
   background-color: white;
   max-width: 33vw;
   text-align: left;
@@ -87,10 +103,42 @@ button:focus-visible {
 
 .pizza-description {
   text-align: left;
+  margin-bottom: 10%;
+}
+
+.pizza-details {
+  display: flex;
+  justify-content: space-between;
+}
+
+.pizza-points {
+  display: flex;
+  align-items: center;
+  margin-top: 3%;
+}
+
+
+.pizza-reviews {
+  display: flex;
+  align-items: center;
+  margin-top: 3%;
 }
 
 .form-cluster {
   display: flex;
+  justify-content: space-evenly;
+  margin: 0 3%;
+}
+
+#exampleSelect {
+  margin-top: 0;
+  max-width: 80%;
+  max-height: 30%;
+  padding: 2%;
+}
+
+.order-note, .name-field {
+  margin: 5% 0;
 }
 
 .end-of-form {
@@ -102,8 +150,34 @@ button:focus-visible {
   float: right;
   border: 1px solid #ccc;
   border-radius: 10px;
-  padding: 10px;
+  padding: 20px 30px;
+}
+
+.summary-box-choices {
+  display: flex;
+  justify-content: space-between;
+}
+
+.choices-p, .choices-n {
+  color: #5F5F5F;
+}
+
+.summary-box-total {
+  color: #CE2829;
+  display: flex;
+  justify-content: space-between;
+}
+
+.total-p, .total-n {
+  color: #CE2829;
+}
+
+.summary-box-b {
+  display: flex;
+  flex-direction: column;
   flex: 2;
+  margin: 0 0 10% 10%;
+  font-weight: bold;
 }
 
 .btn-group {
@@ -113,9 +187,8 @@ button:focus-visible {
   border-radius: 8px;
   overflow: hidden;
   border: 1px solid #F5F8FB;
-  transition: border 0.3s ease;
-  width: 150px;
-  height: 50px;
+  width: 120px;
+  height: 40px;
 }
 
 .btn-group:hover {
@@ -131,7 +204,6 @@ button:focus-visible {
   background-color: #FDC913;
   border: none;
   cursor: pointer;
-  transition: all 0.3s ease;
 }
 
 button:hover {
@@ -139,10 +211,9 @@ button:hover {
 }
 
 .counterP {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid #F5F8FB;
 }
