@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Form, FormGroup, Label, Input, Button, FormText, Container, FormFeedback } from 'reactstrap';
 import axios from 'axios';
+import Header from './Header';
 import OrderCounter from './OrderCounter';
 import PizzaToppings from './PizzaToppings';
 
@@ -14,6 +15,7 @@ export default function OrderPizza() {
   const [size, setSize] = useState('');
   const [dough, setDough] = useState('');
   const [name, setName] = useState('');
+  const [counterValue, setCounterValue] = useState(1);
   const [isFormValid, setIsFormValid] = useState(false);
 
   const updateChoices = (incrementValue) => {
@@ -21,7 +23,7 @@ export default function OrderPizza() {
   };
 
   const getTotalValue = () => {
-    return 85.50 + choices;
+    return (85.50 + choices) * counterValue;
   };
 
   const handleSizeChange = (event) => {
@@ -74,7 +76,8 @@ export default function OrderPizza() {
 
 
   return (
-    <main>
+    <div>
+      <Header />
       <header className='order-header'>
         <p className='order-header-text'>
           Anasayfa - Seçenekler - <strong>Sipariş Oluştur</strong>
@@ -168,6 +171,9 @@ export default function OrderPizza() {
                 invalid={!dough}
               >
                 <option>
+                  Hamur Kalınlığı Seç
+                </option>
+                <option>
                   İnce
                 </option>
                 <option>
@@ -212,7 +218,7 @@ export default function OrderPizza() {
             </FormGroup>
             <hr />
             <div className='end-of-form'>
-              <OrderCounter />
+              <OrderCounter updateCounterValue={setCounterValue} />
               <div className='summary-box-b'>
                 <div className="summary-box">
                   <p className='category-label'>Sipariş Toplamı</p>
@@ -232,6 +238,6 @@ export default function OrderPizza() {
         </Form>
 
       </Container>
-    </main>
+    </div>
   )
 }

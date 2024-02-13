@@ -1,0 +1,42 @@
+.home-logo {
+    padding: 4%;
+  }
+  
+  .home-container {
+    height: 100vh;
+  }
+  .success-container {
+    background-color: #CE2829;
+    height: 80vh;
+  }
+
+  .slogan {
+    font-family: "Roboto Condensed", sans-serif;
+    color: white;
+    font-weight: 200;
+  }
+  
+  .slogan-container {
+    padding: 0 3% 3% 3%;
+  }
+
+  @media (orientation: portrait) {
+
+    .home-logo {
+        width: 80%;
+        margin: 10%;
+    }
+
+    .home-btn {
+        margin-top: 10%;
+    }
+
+ }
+
+ @media (max-width: 480px) {
+
+    .slogan {
+        font-size: 2em;
+    }
+
+ }

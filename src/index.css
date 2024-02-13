@@ -40,26 +40,9 @@ header {
   margin-top: 0;
 }
 
-.home-container,
-.success-container {
-  background-color: #CE2829;
-  height: 80vh;
-}
-
 h1 {
-  font-family: 'Satisfy', cursive;
   font-size: 3.2em;
   line-height: 1.1;
-}
-
-.slogan {
-  font-family: "Barlow", sans-serif;
-  color: white;
-  font-weight: lighter;
-}
-
-.slogan-container {
-  padding: 3%;
 }
 
 h2 {
@@ -81,8 +64,6 @@ p {
   color: #292929;
 }
 
-
-
 .btn-group {
   display: flex;
   align-items: center;
@@ -93,7 +74,6 @@ p {
   width: 120px;
   height: 40px;
 }
-
 
 .decrement-btn,
 .increment-btn {

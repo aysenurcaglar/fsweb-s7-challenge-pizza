@@ -1,6 +1,8 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
+import './HomePage.css';
+
 export default function HomePage() {
 
     const backgroundImageUrl = './Assets/mile1-assets/home-banner.png';
@@ -19,11 +21,12 @@ export default function HomePage() {
 
     return (
         <main className='home-container' style={containerStyle}>
+            <img src="./Assets/mile1-assets/logo.svg" alt="Logo" className="home-logo" />
             <div className='slogan-container'>
                 <h1 className='slogan'>KOD ACIKTIRIR</h1>
                 <h1 className='slogan'>PİZZA DOYURUR</h1>
             </div>
-            <button className='button' onClick={redirectToOrder}>
+            <button className='button home-btn' onClick={redirectToOrder}>
                 ACIKTIM
             </button>
         </main>

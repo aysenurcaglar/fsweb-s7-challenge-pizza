@@ -1,18 +1,25 @@
 import React, { useState } from "react";
-import "./OrderCounter.css";
 
-const OrderCounter = ({ minValue = 1, maxValue = 100 }) => {
+const OrderCounter = ({ minValue = 1, maxValue = 100, updateCounterValue }) => {
   const [count, setCount] = useState(minValue);
 
-  const handleIncrementCounter = () => {
+  const handleIncrementCounter = (e) => {
+    e.preventDefault();
     if (count < maxValue) {
-      setCount((prevState) => prevState + 1);
+      setCount((prevState) => {
+        updateCounterValue(prevState + 1);
+        return prevState + 1;
+      });
     }
   };
 
-  const handleDecrementCounter = () => {
+  const handleDecrementCounter = (e) => {
+    e.preventDefault();
     if (count > minValue) {
-      setCount((prevState) => prevState - 1);
+      setCount((prevState) => {
+        updateCounterValue(prevState - 1);
+        return prevState - 1;
+      });
     }
   };
 

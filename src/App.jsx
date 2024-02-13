@@ -14,7 +14,6 @@ function App() {
 
   return (
     <>
-      <Header />
       <div className="content-section">
         <Switch>
           <Route exact path="/">
