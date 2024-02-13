@@ -1,0 +1,52 @@
+.success-container {
+    background-color: #CE2829;
+    height: 80vh;
+    color: white;
+  }
+
+  /*
+.order-details {
+    max-width: 34vw;
+}
+*/
+
+.success-slogan {
+    font-family: Satisfy, cursive;
+    color: #FDC913;
+    font-size: 2em;
+}
+
+.separate-line {
+    width: 34%;
+    height: 1px;
+    background-color: white;
+    margin: 0 33%;
+}
+
+.order-title {
+    margin: 2.5% 0;
+}
+
+.order-summary {
+    text-align: left;
+    margin: 0 42.5%;
+}
+
+
+.order-box {
+    border: 1px solid white;
+    border-radius: 10px;
+    padding: 20px 30px;
+    width: 20vw;
+    margin: 3% 40%;
+  }
+  
+  .order-box-choices, .order-box-total {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .detail {
+    color: white;
+}
+  
