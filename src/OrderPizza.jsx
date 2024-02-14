@@ -12,14 +12,22 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 export default function OrderPizza() {
 
   const [choices, setChoices] = useState(0);
+  const [selectedToppings, setSelectedToppings] = useState([]);
   const [size, setSize] = useState('');
   const [dough, setDough] = useState('');
   const [name, setName] = useState('');
+  const [orderNote, setOrderNote] = useState('');
   const [counterValue, setCounterValue] = useState(1);
   const [isFormValid, setIsFormValid] = useState(false);
 
-  const updateChoices = (incrementValue) => {
+
+  const updateChoices = (incrementValue, selectedToppings) => {
     setChoices(choices + incrementValue);
+    setSelectedToppings(selectedToppings);  // Set the selected toppings state
+  };
+
+  const getSelectedToppings = () => {
+    return selectedToppings;
   };
 
   const getTotalValue = () => {
@@ -60,12 +68,22 @@ export default function OrderPizza() {
         size,
         dough,
         name,
+        orderNote,
       });
 
       console.log('Response:', response.data);
 
       // Redirect to /success on successful response
-      history.push('/success');
+      history.push('/success', {
+        size,
+        dough,
+        choices,
+        toppings: getSelectedToppings(),
+        name,
+        orderNote,
+        counterValue,
+        totalValue: getTotalValue(),
+      });
     } catch (error) {
       console.error('Error:', error);
 
@@ -106,8 +124,9 @@ export default function OrderPizza() {
 
               <FormGroup check>
                 <Input
-                  name="radio2"
                   type="radio"
+                  name="radio2"
+                  value="Küçük"
                   onChange={(e) => {
                     handleSizeChange(e);
                     validateForm();
@@ -123,6 +142,7 @@ export default function OrderPizza() {
                 <Input
                   name="radio2"
                   type="radio"
+                  value="Orta"
                   onChange={(e) => {
                     handleSizeChange(e);
                     validateForm();
@@ -140,6 +160,7 @@ export default function OrderPizza() {
                 <Input
                   name="radio2"
                   type="radio"
+                  value="Büyük"
                   onChange={(e) => {
                     handleSizeChange(e);
                     validateForm();
@@ -193,7 +214,7 @@ export default function OrderPizza() {
           <FormText className='toppings-note'>
             En fazla 10 malzeme seçebilirsin. 5₺
           </FormText>
-          <PizzaToppings updateChoices={updateChoices} />
+          <PizzaToppings updateChoices={updateChoices} getSelectedToppings={getSelectedToppings} />
           <FormGroup
             check
             row
@@ -214,7 +235,8 @@ export default function OrderPizza() {
               <Label className='category-label' for="exampleNote">
                 Sipariş Notu
               </Label>
-              <Input placeholder='Siparişine eklemek istediğin bir not var mı?' />
+              <Input placeholder='Siparişine eklemek istediğin bir not var mı?'
+              onChange={(e) => setOrderNote(e.target.value)} />
             </FormGroup>
             <hr />
             <div className='end-of-form'>

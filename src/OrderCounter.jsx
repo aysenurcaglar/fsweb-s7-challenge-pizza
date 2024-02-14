@@ -26,11 +26,11 @@ const OrderCounter = ({ minValue = 1, maxValue = 100, updateCounterValue }) => {
   return (
     <div className="btn-group">
         <button className="decrement-btn" onClick={handleDecrementCounter}>
-        <span class="material-symbols-outlined">-</span>
+        <span className="material-symbols-outlined">-</span>
       </button>
       <p className="counterP">{count}</p>
       <button className="increment-btn" onClick={handleIncrementCounter}>
-        <span class="material-symbols-outlined">+</span>
+        <span className="material-symbols-outlined">+</span>
       </button>
     </div>
   );
