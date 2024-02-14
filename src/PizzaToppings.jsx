@@ -48,7 +48,7 @@ const PizzaToppings = ({ updateChoices, getSelectedToppings }) => {
       <Col key={index} xs={6} md={4}>
         <FormGroup check>
           <Label check>
-            <Input type="checkbox" onChange={handleCheckboxChange} disabled={isMaxLimitExceeded} value={topping} /> {topping}
+            <Input type="checkbox" onChange={handleCheckboxChange} disabled={isMaxLimitExceeded} value={topping} className="custom-checkbox" /> {topping}
           </Label>
         </FormGroup>
       </Col>

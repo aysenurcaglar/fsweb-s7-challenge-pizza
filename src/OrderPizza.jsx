@@ -9,20 +9,45 @@ import PizzaToppings from './PizzaToppings';
 import './OrderPizza.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-export default function OrderPizza() {
+const OrderPizza = ({ onSubmit }) => {
+  const initialForm = {
+    choices: 0,
+    selectedToppings: [],
+    size: '',
+    dough: '',
+    name: '',
+    orderNote: '',
+    counterValue: 1,
+  };
 
-  const [choices, setChoices] = useState(0);
-  const [selectedToppings, setSelectedToppings] = useState([]);
-  const [size, setSize] = useState('');
-  const [dough, setDough] = useState('');
-  const [name, setName] = useState('');
-  const [orderNote, setOrderNote] = useState('');
-  const [counterValue, setCounterValue] = useState(1);
   const [isFormValid, setIsFormValid] = useState(false);
+  const [formData, setFormData] = useState(initialForm);
+  const [formError, setFormError] = useState(null);
 
+  const history = useHistory();
+
+  const handleChange = (name, value) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+    validateForm({ ...formData, [name]: value });
+  };
+
+  const handleCheckboxChange = (selectedToppings) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      selectedToppings,
+      choices: selectedToppings.length * 5,
+    }));
+    validateForm({ ...formData, selectedToppings });
+  };
+
+  /*
 
   const updateChoices = (incrementValue, selectedToppings) => {
-    setChoices(choices + incrementValue);
+    const newChoices = selectedToppings.length > 0 ? selectedToppings.length * 5 : 0;
+    setChoices(newChoices);
     setSelectedToppings(selectedToppings);  // Set the selected toppings state
   };
 
@@ -30,66 +55,43 @@ export default function OrderPizza() {
     return selectedToppings;
   };
 
+  */
+
   const getTotalValue = () => {
     return (85.50 + choices) * counterValue;
-  };
-
-  const handleSizeChange = (event) => {
-    setSize(event.target.value);
-  };
-
-  const handleDoughChange = (event) => {
-    setDough(event.target.value);
-  };
-
-  const handleNameChange = (event) => {
-    setName(event.target.value);
   };
 
   const validateForm = () => {
     // Add your validation logic here
     const isSizeValid = size !== '';
     const isDoughValid = dough !== '';
-    const isNameValid = name.trim().length >= 2;
+    const isNameValid = formData.name.trim().length >= 2;
 
     setIsFormValid(isSizeValid && isDoughValid && isNameValid);
   };
 
-
-  const history = useHistory();
-
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent the default form submission behavior
 
-    try {
-      // Send POST request to the API
-      const response = await axios.post('https://reqres.in/api/pizza', {
-        choices,
-        size,
-        dough,
-        name,
-        orderNote,
+    axios.post('https://reqres.in/api/pizza', formData)
+      .then(function (response) {
+        console.log('Response:', response);
+        
+        // Call the onSubmit prop with the response data
+        onSubmit(response.data);
+
+        // Reset the form data to initial values
+        setFormData(initialForm);
+
+        // Redirect to /success on successful response
+        history.push('/success', { responseData: response.data });
+      })
+      .catch(function (error) {
+        console.error('Error:', error);
+
+        // Set form error to the error code
+        setFormError(error.code);
       });
-
-      console.log('Response:', response.data);
-
-      // Redirect to /success on successful response
-      history.push('/success', {
-        size,
-        dough,
-        choices,
-        toppings: getSelectedToppings(),
-        name,
-        orderNote,
-        counterValue,
-        totalValue: getTotalValue(),
-      });
-    } catch (error) {
-      console.error('Error:', error);
-
-      // Redirect to /error on error
-      history.push('/error');
-    }
   };
 
 
@@ -128,7 +130,7 @@ export default function OrderPizza() {
                   name="radio2"
                   value="Küçük"
                   onChange={(e) => {
-                    handleSizeChange(e);
+                    handleChange();
                     validateForm();
                   }}
                   invalid={!size}
@@ -185,10 +187,8 @@ export default function OrderPizza() {
                 id="exampleSelect"
                 name="select"
                 type="select"
-                onChange={(e) => {
-                  handleDoughChange(e);
-                  validateForm();
-                }}
+                value={formData.dough}
+                onChange={(e) => handleChange('dough', e.target.value)}
                 invalid={!dough}
               >
                 <option>
@@ -214,7 +214,8 @@ export default function OrderPizza() {
           <FormText className='toppings-note'>
             En fazla 10 malzeme seçebilirsin. 5₺
           </FormText>
-          <PizzaToppings updateChoices={updateChoices} getSelectedToppings={getSelectedToppings} />
+          <PizzaToppings selectedToppings={formData.selectedToppings}
+            updateSelectedToppings={handleCheckboxChange} />
           <FormGroup
             check
             row
@@ -224,10 +225,8 @@ export default function OrderPizza() {
                 İsim<span className="mandatory">*</span>
               </Label>
               <Input
-                onChange={(e) => {
-                  handleNameChange(e);
-                  validateForm();
-                }}
+                value={formData.name}
+                onChange={(e) => handleChange('name', e.target.value)}
                 invalid={name.trim().length < 3} />
               <FormFeedback>Lütfen geçerli bir isim gir (en az 3 harf).</FormFeedback>
             </FormGroup>
@@ -236,7 +235,8 @@ export default function OrderPizza() {
                 Sipariş Notu
               </Label>
               <Input placeholder='Siparişine eklemek istediğin bir not var mı?'
-              onChange={(e) => setOrderNote(e.target.value)} />
+                value={formData.orderNote}
+                onChange={(e) => handleChange('orderNote', e.target.value)} />
             </FormGroup>
             <hr />
             <div className='end-of-form'>

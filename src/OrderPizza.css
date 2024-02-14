@@ -73,6 +73,24 @@
     max-height: 30%;
     padding: 2%;
   }
+
+  /*
+
+  .custom-checkbox:checked {
+    background-color: #FDC913;
+  }
+
+  .custom-checkbox:checked:before {
+    content: '✔';
+    font-family: 'Quattrocento', sans-serif;
+    font-size: 14px;
+    color: #292929;
+    position: relative;
+    top: -4px;
+    left: -2px;
+  }
+
+  */
   
   .order-note, .name-field {
     margin: 5% 0;
