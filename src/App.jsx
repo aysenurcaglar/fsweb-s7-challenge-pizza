@@ -1,8 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Switch, Route } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Header from './Header';
 import HomePage from './HomePage';
 import OrderPizza from './OrderPizza';
 import Success from './Success';
@@ -10,7 +9,13 @@ import Success from './Success';
 
 
 
-function App() {
+const App = () => {
+  const [responseData, setResponseData] = useState('');
+
+  const handlePizzaOrderSubmit = (data) => {
+    console.log(data);
+    setResponseData(data);
+  };
 
   return (
     <>
@@ -20,10 +25,10 @@ function App() {
             <HomePage />
           </Route>
           <Route exact path="/order">
-            <OrderPizza />
+            <OrderPizza onSubmit={handlePizzaOrderSubmit} />
           </Route>
           <Route exact path="/success">
-            <Success />
+            <Success responseData={responseData} />
           </Route>
         </Switch>
       </div>

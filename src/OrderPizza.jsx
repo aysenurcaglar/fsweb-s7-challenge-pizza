@@ -9,41 +9,18 @@ import PizzaToppings from './PizzaToppings';
 import './OrderPizza.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const OrderPizza = ({ onSubmit }) => {
-  const initialForm = {
-    choices: 0,
-    selectedToppings: [],
-    size: '',
-    dough: '',
-    name: '',
-    orderNote: '',
-    counterValue: 1,
-  };
+export default function OrderPizza({onSubmit}) {
 
+  const [choices, setChoices] = useState(0);
+  const [selectedToppings, setSelectedToppings] = useState([]);
+  const [size, setSize] = useState('');
+  const [dough, setDough] = useState('');
+  const [name, setName] = useState('');
+  const [orderNote, setOrderNote] = useState('');
+  const [counterValue, setCounterValue] = useState(1);
   const [isFormValid, setIsFormValid] = useState(false);
-  const [formData, setFormData] = useState(initialForm);
   const [formError, setFormError] = useState(null);
 
-  const history = useHistory();
-
-  const handleChange = (name, value) => {
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
-    }));
-    validateForm({ ...formData, [name]: value });
-  };
-
-  const handleCheckboxChange = (selectedToppings) => {
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      selectedToppings,
-      choices: selectedToppings.length * 5,
-    }));
-    validateForm({ ...formData, selectedToppings });
-  };
-
-  /*
 
   const updateChoices = (incrementValue, selectedToppings) => {
     const newChoices = selectedToppings.length > 0 ? selectedToppings.length * 5 : 0;
@@ -55,43 +32,60 @@ const OrderPizza = ({ onSubmit }) => {
     return selectedToppings;
   };
 
-  */
-
   const getTotalValue = () => {
     return (85.50 + choices) * counterValue;
+  };
+
+  const handleSizeChange = (event) => {
+    setSize(event.target.value);
+  };
+
+  const handleDoughChange = (event) => {
+    setDough(event.target.value);
+  };
+
+  const handleNameChange = (event) => {
+    setName(event.target.value);
   };
 
   const validateForm = () => {
     // Add your validation logic here
     const isSizeValid = size !== '';
     const isDoughValid = dough !== '';
-    const isNameValid = formData.name.trim().length >= 2;
+    const isNameValid = name.trim().length >= 2;
 
     setIsFormValid(isSizeValid && isDoughValid && isNameValid);
   };
 
+
+  const history = useHistory();
+
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent the default form submission behavior
 
-    axios.post('https://reqres.in/api/pizza', formData)
-      .then(function (response) {
-        console.log('Response:', response);
-        
-        // Call the onSubmit prop with the response data
-        onSubmit(response.data);
-
-        // Reset the form data to initial values
-        setFormData(initialForm);
-
-        // Redirect to /success on successful response
-        history.push('/success', { responseData: response.data });
-      })
-      .catch(function (error) {
-        console.error('Error:', error);
-
-        // Set form error to the error code
-        setFormError(error.code);
+    try {
+      // Send POST request to the API
+      const response = await axios.post('https://reqres.in/api/pizza', {
+        choices,
+      size,
+      dough,
+      name,
+      orderNote,
+      toppings: getSelectedToppings(),
+      counterValue,
+      totalValue: getTotalValue(),
       });
+
+      console.log('Response:', response.data);
+      onSubmit(response.data);
+
+      // Redirect to /success on successful response
+      history.push('/success');
+    } catch (error) {
+      console.error(error);
+      setFormError(error.code);
+
+    }
   };
 
 
@@ -130,7 +124,7 @@ const OrderPizza = ({ onSubmit }) => {
                   name="radio2"
                   value="Küçük"
                   onChange={(e) => {
-                    handleChange();
+                    handleSizeChange(e);
                     validateForm();
                   }}
                   invalid={!size}
@@ -187,8 +181,10 @@ const OrderPizza = ({ onSubmit }) => {
                 id="exampleSelect"
                 name="select"
                 type="select"
-                value={formData.dough}
-                onChange={(e) => handleChange('dough', e.target.value)}
+                onChange={(e) => {
+                  handleDoughChange(e);
+                  validateForm();
+                }}
                 invalid={!dough}
               >
                 <option>
@@ -214,8 +210,7 @@ const OrderPizza = ({ onSubmit }) => {
           <FormText className='toppings-note'>
             En fazla 10 malzeme seçebilirsin. 5₺
           </FormText>
-          <PizzaToppings selectedToppings={formData.selectedToppings}
-            updateSelectedToppings={handleCheckboxChange} />
+          <PizzaToppings updateChoices={updateChoices} getSelectedToppings={getSelectedToppings} />
           <FormGroup
             check
             row
@@ -225,8 +220,10 @@ const OrderPizza = ({ onSubmit }) => {
                 İsim<span className="mandatory">*</span>
               </Label>
               <Input
-                value={formData.name}
-                onChange={(e) => handleChange('name', e.target.value)}
+                onChange={(e) => {
+                  handleNameChange(e);
+                  validateForm();
+                }}
                 invalid={name.trim().length < 3} />
               <FormFeedback>Lütfen geçerli bir isim gir (en az 3 harf).</FormFeedback>
             </FormGroup>
@@ -235,10 +232,9 @@ const OrderPizza = ({ onSubmit }) => {
                 Sipariş Notu
               </Label>
               <Input placeholder='Siparişine eklemek istediğin bir not var mı?'
-                value={formData.orderNote}
-                onChange={(e) => handleChange('orderNote', e.target.value)} />
+              onChange={(e) => setOrderNote(e.target.value)} />
             </FormGroup>
-            <hr />
+            <hr className='form-separator'/>
             <div className='end-of-form'>
               <OrderCounter updateCounterValue={setCounterValue} />
               <div className='summary-box-b'>
@@ -258,7 +254,7 @@ const OrderPizza = ({ onSubmit }) => {
             </div>
           </FormGroup>
         </Form>
-
+        {formError && <div className='error-message'><p>{formError}</p></div>}
       </Container>
     </div>
   )

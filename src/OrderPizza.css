@@ -95,6 +95,7 @@
   .order-note, .name-field {
     margin: 5% 0;
   }
+
   
   .end-of-form {
     display: flex;
@@ -171,6 +172,10 @@
 
     .summary-box {
         padding: 10%;
+      }
+
+      .form-separator {
+        margin-right: 10%;
       }
 
  }
