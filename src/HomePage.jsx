@@ -5,14 +5,6 @@ import './HomePage.css';
 
 export default function HomePage() {
 
-    const backgroundImageUrl = './Assets/mile1-assets/home-banner.png';
-
-    const containerStyle = {
-        background: `url(${backgroundImageUrl})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-    };
-
     const history = useHistory();
 
     const redirectToOrder = () => {
@@ -20,7 +12,7 @@ export default function HomePage() {
     };
 
     return (
-        <main className='home-container' style={containerStyle}>
+        <main className='home-container'>
             <img src="./Assets/mile1-assets/logo.svg" alt="Logo" className="home-logo" />
             <div className='slogan-container'>
                 <p className='home-slogan'>fırsatı kaçırma</p>

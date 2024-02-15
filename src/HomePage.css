@@ -3,8 +3,12 @@
 }
 
 .home-container {
+  background-image: url('./Assets/mile1-assets/home-banner.png');
+  background-size: cover;
+  background-position: center;
   height: 100vh;
 }
+
 
 .home-slogan {
   font-family: Satisfy, cursive;
