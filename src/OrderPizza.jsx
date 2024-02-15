@@ -9,7 +9,7 @@ import PizzaToppings from './PizzaToppings';
 import './OrderPizza.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-export default function OrderPizza({onSubmit}) {
+export default function OrderPizza({ handleOrderSubmit }) {
 
   const [choices, setChoices] = useState(0);
   const [selectedToppings, setSelectedToppings] = useState([]);
@@ -22,10 +22,10 @@ export default function OrderPizza({onSubmit}) {
   const [formError, setFormError] = useState(null);
 
 
-  const updateChoices = (incrementValue, selectedToppings) => {
+  const updateChoices = (choicesValue, selectedToppings) => {
     const newChoices = selectedToppings.length > 0 ? selectedToppings.length * 5 : 0;
     setChoices(newChoices);
-    setSelectedToppings(selectedToppings);  // Set the selected toppings state
+    setSelectedToppings(selectedToppings);
   };
 
   const getSelectedToppings = () => {
@@ -49,7 +49,6 @@ export default function OrderPizza({onSubmit}) {
   };
 
   const validateForm = () => {
-    // Add your validation logic here
     const isSizeValid = size !== '';
     const isDoughValid = dough !== '';
     const isNameValid = name.trim().length >= 2;
@@ -61,31 +60,28 @@ export default function OrderPizza({onSubmit}) {
   const history = useHistory();
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent the default form submission behavior
+    e.preventDefault();
 
-    try {
-      // Send POST request to the API
-      const response = await axios.post('https://reqres.in/api/pizza', {
+    axios
+      .post('https://reqres.in/api/pizza', {
         choices,
-      size,
-      dough,
-      name,
-      orderNote,
-      toppings: getSelectedToppings(),
-      counterValue,
-      totalValue: getTotalValue(),
+        size,
+        dough,
+        name,
+        orderNote,
+        toppings: getSelectedToppings(),
+        counterValue,
+        totalValue: getTotalValue(),
+      })
+      .then((response) => {
+        console.log('Response:', response.data);
+        handleOrderSubmit(response.data);
+        history.push('/success');
+      })
+      .catch((error) => {
+        console.error(error);
+        setFormError(error.code);
       });
-
-      console.log('Response:', response.data);
-      onSubmit(response.data);
-
-      // Redirect to /success on successful response
-      history.push('/success');
-    } catch (error) {
-      console.error(error);
-      setFormError(error.code);
-
-    }
   };
 
 
@@ -232,9 +228,9 @@ export default function OrderPizza({onSubmit}) {
                 Sipariş Notu
               </Label>
               <Input placeholder='Siparişine eklemek istediğin bir not var mı?'
-              onChange={(e) => setOrderNote(e.target.value)} />
+                onChange={(e) => setOrderNote(e.target.value)} />
             </FormGroup>
-            <hr className='form-separator'/>
+            <hr className='form-separator' />
             <div className='end-of-form'>
               <OrderCounter updateCounterValue={setCounterValue} />
               <div className='summary-box-b'>
@@ -247,7 +243,7 @@ export default function OrderPizza({onSubmit}) {
                     <p className='total-p'>Toplam</p><p className='total-n'>{getTotalValue()}₺</p>
                   </div>
                 </div>
-                <Button className='orderButton' disabled={!isFormValid}>
+                <Button className='order-button' disabled={!isFormValid}>
                   SİPARİŞ VER
                 </Button>
               </div>

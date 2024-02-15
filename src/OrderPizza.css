@@ -1,4 +1,4 @@
-.button, .orderButton {
+.order-button {
     border-radius: 8px;
     border: 1px solid transparent;
     padding: 0.6em 1.2em;
@@ -91,6 +91,8 @@
   }
 
   */
+
+  
   
   .order-note, .name-field {
     margin: 5% 0;
@@ -100,6 +102,43 @@
   .end-of-form {
     display: flex;
     justify-content: space-between;
+  }
+
+  .category-label {
+    font-weight: bold;
+    color: #292929;
+  }
+  
+  .btn-group {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #F5F8FB;
+    width: 120px;
+    height: 40px;
+  }
+  
+  .decrement-btn,
+  .increment-btn {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #FDC913;
+    border: none;
+    cursor: pointer;
+  }
+  
+  
+  .counterP {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   .summary-box {
@@ -158,13 +197,6 @@
 
   @media (max-width: 480px) {
 
-    body {
-        max-width: 100%;
-    }
-
-    header {
-        max-width: 100vw;
-    }
     
     .order-form {
       max-width: 85vw;
@@ -172,10 +204,6 @@
 
     .summary-box {
         padding: 10%;
-      }
-
-      .form-separator {
-        margin-right: 10%;
       }
 
  }

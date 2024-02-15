@@ -1,3 +1,5 @@
+// Source: https://timetoprogram.com/increment-decrement-counter-button-in-react/
+
 import React, { useState } from "react";
 
 const OrderCounter = ({ minValue = 1, maxValue = 100, updateCounterValue }) => {

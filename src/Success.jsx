@@ -25,12 +25,12 @@ const Success = ({ responseData }) => {
                         <p className='order-note detail'>Sipariş Notu: <strong>{responseData.orderNote}</strong></p>
                     </div>
                     <div className="order-box">
-                        <p className='order-label detail'>Sipariş Toplamı</p>
+                        <p className='order-label detail'><strong>Sipariş Toplamı</strong></p>
                         <div className='order-box-choices'>
-                            <p className='order-choices-p detail'>Seçimler</p><p className='order-choices-n detail'>{responseData.choices}₺</p>
+                            <p className='order-choices-p detail'><strong>Seçimler</strong></p><p className='order-choices-n detail'><strong>{responseData.choices}₺</strong></p>
                         </div>
                         <div className='order-box-total'>
-                            <p className='order-total-p detail'>Toplam</p><p className='order-total-n detail'>{responseData.totalValue}₺</p>
+                            <p className='order-total-p detail'><strong>Toplam</strong></p><p className='order-total-n detail'><strong>{responseData.totalValue}₺</strong></p>
                         </div>
                     </div>
                 </main>

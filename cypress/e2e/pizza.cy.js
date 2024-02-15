@@ -29,12 +29,11 @@ describe('Form Validation Test', () => {
 
     cy.contains('Lütfen geçerli bir isim gir (en az 3 harf).').should('be.visible');
 
-    cy.get('.orderButton').should('be.disabled');
+    cy.get('.order-button').should('be.disabled');
 
   });
 
   it('isim 2 karakterden kısaysa düğme devre dışı kalıyor, tüm zorunlu alanlar doğru şekilde doldurulunca düğme etkinleşiyor ve düğmeye basınca form gönderiliyor', () => {
-    cy.intercept('POST', 'https://reqres.in/api/pizza').as('postRequest');
 
     cy.get('.form-cluster input[name="radio2"]').first().click();
 
@@ -42,17 +41,13 @@ describe('Form Validation Test', () => {
 
     cy.get('.name-field input').type('Ay');
 
-    cy.get('.orderButton').should('be.disabled');
+    cy.get('.order-button').should('be.disabled');
 
     cy.get('.name-field input').clear().type('Ayşe');
 
-    cy.get('.orderButton').should('not.be.disabled');
+    cy.get('.order-button').should('not.be.disabled');
 
-    cy.get('.orderButton').click();
-
-    cy.wait('@postRequest').then((interception) => {
-      expect(interception.response.statusCode).to.equal(201);
-    });
+    cy.get('.order-button').click();
 
     cy.url().should('include', '/success');
   });

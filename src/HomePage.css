@@ -1,38 +1,57 @@
 .home-logo {
-    padding: 4%;
+  padding: 4% 4% 2% 4%;
+}
+
+.home-container {
+  height: 100vh;
+}
+
+.home-slogan {
+  font-family: Satisfy, cursive;
+  color: #FDC913;
+  font-size: 2em;
+}
+
+.slogan {
+  font-family: "Roboto Condensed", sans-serif;
+  color: white;
+  font-weight: 200;
+}
+
+.slogan-container {
+  padding: 1% 3%;
+}
+
+.home-btn {
+  border-radius: 30px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background: #FDC913;
+  color: #292929;
+  cursor: pointer;
+  width: 150px;
+}
+
+@media (orientation: portrait) {
+
+  .home-logo {
+    width: 80%;
+    margin: 10%;
   }
-  
-  .home-container {
-    height: 100vh;
-  }
+
+}
+
+@media (max-width: 480px) {
 
   .slogan {
-    font-family: "Roboto Condensed", sans-serif;
-    color: white;
-    font-weight: 200;
-  }
-  
-  .slogan-container {
-    padding: 0 3% 3% 3%;
+    font-size: 2em;
   }
 
-  @media (orientation: portrait) {
+  .home-btn {
+    margin-top: 10%;
+  }
 
-    .home-logo {
-        width: 80%;
-        margin: 10%;
-    }
-
-    .home-btn {
-        margin-top: 10%;
-    }
-
- }
-
- @media (max-width: 480px) {
-
-    .slogan {
-        font-size: 2em;
-    }
-
- }
+}

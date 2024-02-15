@@ -23,10 +23,11 @@ export default function HomePage() {
         <main className='home-container' style={containerStyle}>
             <img src="./Assets/mile1-assets/logo.svg" alt="Logo" className="home-logo" />
             <div className='slogan-container'>
+                <p className='home-slogan'>fırsatı kaçırma</p>
                 <h1 className='slogan'>KOD ACIKTIRIR</h1>
                 <h1 className='slogan'>PİZZA DOYURUR</h1>
             </div>
-            <button className='button home-btn' onClick={redirectToOrder}>
+            <button className='home-btn' onClick={redirectToOrder}>
                 ACIKTIM
             </button>
         </main>

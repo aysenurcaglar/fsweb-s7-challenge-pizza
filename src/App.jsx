@@ -6,13 +6,10 @@ import HomePage from './HomePage';
 import OrderPizza from './OrderPizza';
 import Success from './Success';
 
-
-
-
 const App = () => {
   const [responseData, setResponseData] = useState('');
 
-  const handlePizzaOrderSubmit = (data) => {
+  const handleOrderSubmit = (data) => {
     console.log(data);
     setResponseData(data);
   };
@@ -25,7 +22,7 @@ const App = () => {
             <HomePage />
           </Route>
           <Route exact path="/order">
-            <OrderPizza onSubmit={handlePizzaOrderSubmit} />
+            <OrderPizza handleOrderSubmit={handleOrderSubmit} />
           </Route>
           <Route exact path="/success">
             <Success responseData={responseData} />
