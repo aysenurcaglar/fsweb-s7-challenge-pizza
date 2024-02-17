@@ -23,6 +23,7 @@ const Success = ({ responseData }) => {
                         <p className='order-extra detail'>Ek Malzemeler: <strong>{responseData.toppings.join(', ')}</strong></p>
                         <p className='order-customer-name detail'>İsim: <strong>{responseData.name}</strong></p>
                         <p className='order-note detail'>Sipariş Notu: <strong>{responseData.orderNote}</strong></p>
+                        <h5 className='early-delivery-message detail'><strong>{responseData.earlyDeliveryMessage}</strong></h5>
                     </div>
                     <div className="order-box">
                         <p className='order-label detail'><strong>Sipariş Toplamı</strong></p>

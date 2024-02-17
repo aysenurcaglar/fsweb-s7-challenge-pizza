@@ -206,4 +206,9 @@
         padding: 10%;
       }
 
+      .form-cluster {
+        flex-direction: column;
+      }
+    
+
  }

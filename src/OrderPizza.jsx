@@ -18,6 +18,7 @@ export default function OrderPizza({ handleOrderSubmit }) {
   const [name, setName] = useState('');
   const [orderNote, setOrderNote] = useState('');
   const [counterValue, setCounterValue] = useState(1);
+  const [earlyDelivery, setEarlyDelivery] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
   const [formError, setFormError] = useState(null);
 
@@ -32,10 +33,6 @@ export default function OrderPizza({ handleOrderSubmit }) {
     return selectedToppings;
   };
 
-  const getTotalValue = () => {
-    return (85.50 + choices) * counterValue;
-  };
-
   const handleSizeChange = (event) => {
     setSize(event.target.value);
   };
@@ -47,6 +44,21 @@ export default function OrderPizza({ handleOrderSubmit }) {
   const handleNameChange = (event) => {
     setName(event.target.value);
   };
+
+  const handleEarlyDeliveryChange = () => {
+    setEarlyDelivery(!earlyDelivery);
+  };
+
+  const getEarlyDeliveryMessage = () => {
+    return earlyDelivery ? "Harika! Siparişini yarım saat içinde getireceğiz!" : "";
+  };
+
+  const earlyDeliveryCost = earlyDelivery ? 50 : 0;
+
+  const getTotalValue = () => {
+    return ((85.50 + choices) * counterValue) + earlyDeliveryCost;
+  };
+
 
   const validateForm = () => {
     const isSizeValid = size !== '';
@@ -72,6 +84,7 @@ export default function OrderPizza({ handleOrderSubmit }) {
         toppings: getSelectedToppings(),
         counterValue,
         totalValue: getTotalValue(),
+        earlyDeliveryMessage: getEarlyDeliveryMessage(),
       })
       .then((response) => {
         console.log('Response:', response.data);
@@ -223,6 +236,7 @@ export default function OrderPizza({ handleOrderSubmit }) {
                 invalid={name.trim().length < 3} />
               <FormFeedback>Lütfen geçerli bir isim gir (en az 3 harf).</FormFeedback>
             </FormGroup>
+            
             <FormGroup className='order-note'>
               <Label className='category-label' for="exampleNote">
                 Sipariş Notu
@@ -230,6 +244,18 @@ export default function OrderPizza({ handleOrderSubmit }) {
               <Input placeholder='Siparişine eklemek istediğin bir not var mı?'
                 onChange={(e) => setOrderNote(e.target.value)} />
             </FormGroup>
+            <FormGroup check>
+          <Label check>
+            <Input
+              type="checkbox"
+              onChange={handleEarlyDeliveryChange}
+            /> Erken Teslimat (+50₺)
+          </Label>
+          <br />
+          <FormText className='early-delivery-note'>
+            İşaretlemen halinde siparişini yarım saat içinde getireceğiz.
+          </FormText>
+        </FormGroup>
             <hr className='form-separator' />
             <div className='end-of-form'>
               <OrderCounter updateCounterValue={setCounterValue} />
