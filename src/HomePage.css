@@ -4,6 +4,7 @@
 
 .home-container {
   background-image: url('./public/home-banner.png');
+  background-color: #CE2829;
   background-size: cover;
   background-position: center;
   height: 100vh;
