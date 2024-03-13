@@ -3,7 +3,7 @@
 }
 
 .home-container {
-  background-image: url('./home-banner.png');
+  background-image: url('./public/home-banner.png');
   background-size: cover;
   background-position: center;
   height: 100vh;
