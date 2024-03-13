@@ -13,7 +13,7 @@ export default function HomePage() {
 
     return (
         <main className='home-container'>
-            <img src="./Assets/mile1-assets/logo.svg" alt="Logo" className="home-logo" />
+            <img src="./logo.svg" alt="Logo" className="home-logo" />
             <div className='slogan-container'>
                 <p className='home-slogan'>fırsatı kaçırma</p>
                 <h1 className='slogan'>KOD ACIKTIRIR</h1>
